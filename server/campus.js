@@ -24,6 +24,15 @@ router.get('/:id', (req, res, next) => {
         .catch(next)
 })
 
+// // Get all students that belong to a campus
+// router.get('/:id/', (req, res, next) => {
+//     User.findAll({
+//         where: {
+//             campusId: req.params.campusId
+//         }
+//     })
+// })
+
 // Post new campus
 router.post('/', (req, res, next) => {
     Campus.create({

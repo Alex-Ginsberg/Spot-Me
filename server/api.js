@@ -8,6 +8,7 @@ const db = require('../db')
 
 api.use('/student', require('./student'));
 api.use('/campus', require('./campus'));
+api.use('/all', require('./all'));
 
 
 api.get('/hello', (req, res) => res.send({hello: 'world'}))
