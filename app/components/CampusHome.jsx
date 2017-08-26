@@ -20,7 +20,7 @@ export default class CampusList extends Component{
         return (
             <div>
                 {this.state.campuses.map(campus => (
-                    <div key={campus.id}>
+                    <div key={campus.id} Link to={'/campus/${campus.id}'}>
                     <img src={campus.image} alt="image" height="150" width="150" />
                     <h2>{campus.name}</h2>
                     </div>
