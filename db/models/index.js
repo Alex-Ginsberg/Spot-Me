@@ -6,5 +6,10 @@
 	// This is an acceptable pattern but it does have limitations in that if you change the name of the model you will have to change every time it is requeired everywhere
 
 const User = require('./user')
+const Campus = require('./campus')
+Campus.hasMany(User);
 
-module.exports = {User}
+module.exports = {
+	User: User,
+	Campus: Campus
+}

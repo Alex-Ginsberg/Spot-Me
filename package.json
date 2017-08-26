@@ -1,5 +1,5 @@
 {
-  "name": "Project Name",
+  "name": "Project",
   "version": "0.0.1",
   "description": "A review time project",
   "main": "index.js",
@@ -15,6 +15,7 @@
     "skeleton"
   ],
   "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.15.2",
     "chalk": "^1.1.3",
     "express": "^4.14.0",
