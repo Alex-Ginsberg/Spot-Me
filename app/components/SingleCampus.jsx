@@ -7,7 +7,7 @@ import axios from 'axios';
 export default class SingleCampus extends Component{
     constructor() {
         super();
-        this.state = {currentStudents: []}
+        this.state = {currentStudents: [], currentCampus: ''}
     }
 
     componentDidMount() {
@@ -15,18 +15,40 @@ export default class SingleCampus extends Component{
             .then(res => res.data)
             .then(data => {
                 this.setState({currentStudents: data})
+                axios.get(`/api/campus/${this.props.match.params.campusId}`)
+                    .then(res => res.data)
+                    .then(data => {
+                        this.setState({currentCampus: data.name})
+                    })
             })
     }
 
     render() {
         return (
-            <ul>
+            <div className="container">
+            <h2>{this.state.currentCampus}</h2>
+            <p>This table shows all students currently enrolled at the {this.state.currentCampus} campus:</p>            
+            <table className="table">
+                <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+                </thead>
+                <tbody>
                 {this.state.currentStudents.map(student => {
                     return (
-                        <li key={student.id}>{student.name}</li>
+                        <tr key={student.id}>
+                            <td>{student.id}</td>
+                            <td>{student.name}</td>
+                            <td>{student.email}</td>
+                        </tr>
                     )
                 })}
-            </ul>
+                </tbody>
+            </table>
+            </div>
         )
     }
 }

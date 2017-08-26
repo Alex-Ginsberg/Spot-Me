@@ -18,9 +18,9 @@ export default class CampusList extends Component{
 
     render() {
         return (
-            <div>
+            <div className="row">
                 {this.state.campuses.map(campus => (
-                    <div key={campus.id} >
+                    <div key={campus.id} className='col-lg-6' >
                         <Link to={`/campus/${campus.id}`}>
                             <img src={campus.image} alt="image" height="150" width="150" />
                             <h2>{campus.name}</h2>
