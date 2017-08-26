@@ -18,29 +18,14 @@ export default class CampusList extends Component{
 
     render() {
         return (
-            <ul>
+            <div>
                 {this.state.campuses.map(campus => (
-                    <li key={campus.id}>{campus.name}</li>
+                    <div key={campus.id}>
+                    <img src={campus.image} alt="image" height="150" width="150" />
+                    <h2>{campus.name}</h2>
+                    </div>
                 ))}
-            </ul>
+            </div>
         )
     }
 }
-
-// const CampusListContainer = connect(mapStateToProps)(CampusList)
-// export default CampusListContainer;
-
-// export default class CampusHome extends Component {
-//     constructor() {
-//         super();
-//     }
-
-//     render() {
-//         return (
-//             <div>
-//                 <p>Whatuppp</p>
-//             </div>
-//         )
-//     }
-
-// }

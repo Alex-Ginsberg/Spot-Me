@@ -9,7 +9,7 @@ import CampusHome from './components/CampusHome'
 
 render (
   <Provider store={store}>
-    <Root/>
+    <Root />
   </Provider>,
   document.getElementById('main')
 )
