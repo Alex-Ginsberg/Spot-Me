@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import CampusHome from './CampusHome'
+import store from '../store';
 
 export default class WinterJokes extends Component {
   constructor() {
@@ -7,8 +9,8 @@ export default class WinterJokes extends Component {
     this.answer = this.answer.bind(this)
   }
 
-  componentDidMount() {
-    this.nextJoke()
+  componentDidMount () {
+    this.nextJoke();
   }
 
   nextJoke() {
@@ -30,6 +32,7 @@ export default class WinterJokes extends Component {
       <div>
         <h1 onClick={answered ? this.nextJoke : this.answer}>{joke.q}</h1>
         {answered && <h2>{joke.a}</h2>}
+        <CampusHome />
       </div>
     )
   }
