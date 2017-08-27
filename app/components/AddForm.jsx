@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import store from '../store';
 import {writeStudent} from '../reducers/newStudentEntry'
 import {postStudent} from '../reducers/students'
+import {showForm} from '../reducers/showForm'
 
 export default class AddForm extends Component {
     constructor() {
@@ -25,6 +26,7 @@ export default class AddForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        store.dispatch(showForm());
         store.dispatch(postStudent(e.target.studentName.value, e.target.studentEmail.value, e.target.studentCampus.value))
     }
 
