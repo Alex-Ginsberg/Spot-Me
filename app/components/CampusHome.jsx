@@ -16,6 +16,10 @@ export default class CampusList extends Component{
         this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
     }
 
+    componentWillUnmount () {
+        this.unsubscribe();
+      }
+
     render() {
         return (
             <div className="row">
