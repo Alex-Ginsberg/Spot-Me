@@ -27,8 +27,6 @@ export default class SingleCampus extends Component{
     render() {
         return (
             <div className="container">
-                {console.log(this.state.currentCampus)}
-                {console.log(this.state.currentStudents)}
             <h2>{this.state.currentCampus.name}</h2>
             <p>This table shows all students currently enrolled at the {this.state.currentCampus.name} campus:</p>            
             <table className="table">

@@ -27,15 +27,40 @@ export default class Students extends Component{
 
     render() {
         return (
-            <div>
-                <button id="addStudent" className="btn btn-success" onClick={this.handleClick}>Add Student</button>
-                <ul>
-                    {this.state.students.map(student => (
-                        <li key={student.id}>{student.name}</li>
-                    ))}
-                </ul>
-                {this.state.showForm && <AddForm />}
+            // <div>
+            //     <button id="addStudent" className="btn btn-success" onClick={this.handleClick}>Add Student</button>
+            //     <ul>
+            //         {this.state.students.map(student => (
+            //             <li key={student.id}>{student.name}</li>
+            //         ))}
+            //     </ul>
+            //     {this.state.showForm && <AddForm />}
                 
+            // </div>
+
+            <div className="container">
+                <button id="addStudent" className="btn btn-success" onClick={this.handleClick}>Add Student</button>          
+                <table className="table">
+                    <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Campus</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.students.map(student => {
+                        return (
+                            
+                            <tr key={student.id}>
+                                <td>{student.id}</td>
+                                <td>{student.name}</td>
+                                <td>{student.campus.name}</td>
+                            </tr>
+                        )
+                    })}
+                    </tbody>
+                </table>
             </div>
         )
     }

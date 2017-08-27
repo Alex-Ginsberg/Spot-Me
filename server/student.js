@@ -3,12 +3,17 @@
 const express = require('express');
 const router = new express.Router();
 const models = require('../db/models');
+const Campus = require('../db/models/campus')
 const User = models.User;
 module.exports = router;
 
 // Gets all students
 router.get('/', (req, res, next) => {
-    User.findAll({})
+    User.findAll({
+        include: [{
+            model: Campus
+        }]
+        })
         .then(students => {
             res.json(students)
         })
