@@ -33,12 +33,13 @@ export function fetchStudents() {
         }
 }
 
-export function  postStudent(studentName, studentEmail, campus) {
+export function  postStudent(studentName, studentEmail, campusId) {
     return function thunk(dispatch) {
         console.log(studentName)
         return axios.post('/api/student', {
             name: studentName,
-            email: studentEmail
+            email: studentEmail,
+            campusId: campusId
         })
             .then(res => res.data)
             .then(newStudent => {

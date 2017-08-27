@@ -25,8 +25,7 @@ export default class AddForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
-        store.dispatch(postStudent(e.target.studentName.value, e.target.studentEmail.value))
+        store.dispatch(postStudent(e.target.studentName.value, e.target.studentEmail.value, e.target.studentCampus.value))
     }
 
     render() {
@@ -36,8 +35,17 @@ export default class AddForm extends Component {
                     <label htmlFor="name">Add Person</label>
                     <input className="form-control" type="text" name="studentName" placeholder="Enter student name" 
                     value={this.state.newStudentEntry} onChange={this.handleChange} />
-                    <input className="form-control" type="text" name="studentEmail" placeholder="Enter email address" 
-                    value={this.state.newChannelEntry} />
+                    <input className="form-control" type="text" name="studentEmail" placeholder="Enter email address"  />
+                </div>
+                <div className="col-xs-10">
+                    <select className="form-control" name="studentCampus" required>
+                    <option value="" defaultValue>Select a campus</option>
+                        {
+                            this.state.campuses.map(campus => (
+                            <option key={campus.id} value={campus.id}>{campus.name}</option>
+                        ))
+                        }
+                    </select>
                 </div>
                 <div className="form-group">
                     <button type="submit" className="btn btn-default">Submit Student</button>

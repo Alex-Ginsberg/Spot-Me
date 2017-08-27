@@ -30,7 +30,8 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
     User.create({
         name: req.body.name,
-        email: req.body.email   
+        email: req.body.email,
+        campusId: req.body.campusId
     })
         .then(result => res.json(result))
         .catch(next)
