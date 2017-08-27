@@ -11,6 +11,14 @@ export default class AddForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
+    }
+
+    componentWillUnmount () {
+        this.unsubscribe();
+      }
+
     handleChange(e) {
         store.dispatch(writeStudent(e.target.value))
     }
@@ -18,7 +26,7 @@ export default class AddForm extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        store.dispatch(postStudent(e.target.studentName.value))
+        store.dispatch(postStudent(e.target.studentName.value, e.target.studentEmail.value))
     }
 
     render() {
@@ -27,7 +35,9 @@ export default class AddForm extends Component {
                 <div className="form-group">
                     <label htmlFor="name">Add Person</label>
                     <input className="form-control" type="text" name="studentName" placeholder="Enter student name" 
-                    value={this.state.newChannelEntry} onChange={this.handleChange} />
+                    value={this.state.newStudentEntry} onChange={this.handleChange} />
+                    <input className="form-control" type="text" name="studentEmail" placeholder="Enter email address" 
+                    value={this.state.newChannelEntry} />
                 </div>
                 <div className="form-group">
                     <button type="submit" className="btn btn-default">Submit Student</button>
