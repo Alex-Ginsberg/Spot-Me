@@ -28,16 +28,12 @@ export default class Students extends Component{
     }
 
     handleRemove(studentId) {
-        // axios.delete(`/api/student/${studentId}`)
-        //     .then(res => {
-        //         const studentsThunk = fetchStudents();
-        //         store.dispatch(studentsThunk);
-        //     })
         const removeThunk = deleteStudent(studentId);
         store.dispatch(removeThunk);
     }
 
     render() {
+        console.log("*****", this.state.students)
         return (
             <div className="container">
                 <button id="addStudent" className="btn btn-success" onClick={this.handleClick}>Add Student</button>          
@@ -57,7 +53,7 @@ export default class Students extends Component{
                                 <Link to={`/students/${student.id}`}>
                                 <td>{student.name}</td>
                                 </Link>
-                                <td>{student.campus.name}</td>
+                                <td>{student.campus['name']}</td>
                                 <button className="btn btn-danger" onClick={() => {
                                     const removeThunk = deleteStudent(student.id)
                                     store.dispatch(removeThunk)}}>X</button>

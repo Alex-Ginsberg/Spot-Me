@@ -51,8 +51,13 @@ export function  postStudent(studentName, studentEmail, campusId) {
         })
             .then(res => res.data)
             .then(newStudent => {
-                const action = newStudents(newStudent);
-                dispatch(action);
+                axios.get(`/api/student/${newStudent.id}`)
+                    .then(student => {
+                        console.log(student)
+                        const action = newStudents(student.data);
+                        dispatch(action);
+                    })
+                
             })
     }
 }
