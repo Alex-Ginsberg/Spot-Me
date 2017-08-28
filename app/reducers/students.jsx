@@ -3,6 +3,7 @@ import axios from 'axios';
 // Action Types
 const GET_STUDENTS = 'GET_STUDENTS';
 const NEW_STUDENT = 'NEW_STUDENT';
+const REMOVE_STUDENT = 'REMOVE_STUDENT';
 
 // Action Creator
 export function getStudents(students) {
@@ -18,7 +19,15 @@ export function newStudents(student) {
         type: NEW_STUDENT,
         student: student
     };
-    return action
+    return action;
+}
+
+export function removeStudents(studentId) {
+    const action = {
+        type: REMOVE_STUDENT,
+        studentId: studentId
+    }
+    return action;
 }
 
 // Thunk Middleware
@@ -35,7 +44,6 @@ export function fetchStudents() {
 
 export function  postStudent(studentName, studentEmail, campusId) {
     return function thunk(dispatch) {
-        console.log(studentName)
         return axios.post('/api/student', {
             name: studentName,
             email: studentEmail,
@@ -49,6 +57,16 @@ export function  postStudent(studentName, studentEmail, campusId) {
     }
 }
 
+export function deleteStudent(studentId) {
+    return function thunk(dispatch) {
+        return axios.delete(`api/student/${studentId}`)
+            .then(() => {
+                const action = removeStudents(studentId);
+                dispatch(action);
+            })
+    }
+}
+
 // Reducer
 export default function students(state = [], action) {   
         switch (action.type) {
@@ -56,6 +74,9 @@ export default function students(state = [], action) {
                 return action.students
             case NEW_STUDENT:
                 return [...state, action.student]
+            case REMOVE_STUDENT:
+                let newState = state.filter((student) => student.id !== action.studentId);
+                return newState;
             default:
                 return state;
         }    

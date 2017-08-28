@@ -54,11 +54,13 @@ router.put('/:id', (req, res, next) => {
 })
 
 // Delete a student
-router.delete(':/id', (req, res, next) => {
-    return User.destory({
+router.delete('/:id', (req, res, next) => {
+    console.log('hey');
+    User.destroy({
         where: {
             id: req.params.id
         }
     })
+    .then(() => res.status(204).end())
     .catch(next)
 })
