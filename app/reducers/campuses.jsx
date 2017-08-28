@@ -3,6 +3,7 @@ import axios from 'axios';
 // Action Types
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const NEW_CAMPUS = 'NEW_CAMPUS';
+const REMOVE_CAMPUS = 'REMOVE_CAMPUS'
 
 // Action Creator
 export function getCampuses(campuses) {
@@ -17,6 +18,14 @@ export function newCampuses(campus) {
     const action = {
         type: NEW_CAMPUS,
         campus: campus
+    }
+    return action;
+}
+
+export function removeCampuses(campusId) {
+    const action = {
+        type: REMOVE_CAMPUS,
+        campusId: campusId
     }
     return action;
 }
@@ -40,13 +49,27 @@ export function  postCampus(campusName) {
             image: '/images/mars.jpeg'
         })
             .then(res => res.data)
-            .then(newCampus => {
-                axios.get(`/api/student/${newCampus.id}`)
-                    .then(campus => {
-                        const action = newCampuses(campus.data);
-                        dispatch(action);
-                    })
+            // .then(newCampus => {
+            //     axios.get(`/api/student/${newCampus.id}`)
+            //         .then(campus => {
+            //             const action = newCampuses(campus.data);
+            //             dispatch(action);
+            //         })
                 
+            // })
+            .then(campus => {
+                const action = newCampuses(campus);
+                dispatch(action);
+            })
+    }
+}
+
+export function deleteCampuses(campusId) {
+    return function thunk(dispatch) {
+        return axios.delete(`/api/campus/${campusId}`)
+            .then(() => {
+                const action = removeCampuses(campusId);
+                dispatch(action);
             })
     }
 }
@@ -58,6 +81,9 @@ export default function campuses(state = [], action) {
                 return action.campuses
             case NEW_CAMPUS:
                 return [...state, action.campus]
+            case REMOVE_CAMPUS:
+                let newState = state.filter((student) => student.id !== action.studentId);
+                return newState;
             default:
                 return state;
         }    

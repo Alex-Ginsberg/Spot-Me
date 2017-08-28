@@ -64,7 +64,7 @@ export function  postStudent(studentName, studentEmail, campusId) {
 
 export function deleteStudent(studentId) {
     return function thunk(dispatch) {
-        return axios.delete(`api/student/${studentId}`)
+        return axios.delete(`/api/student/${studentId}`)
             .then(() => {
                 const action = removeStudents(studentId);
                 dispatch(action);

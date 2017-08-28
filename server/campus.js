@@ -53,3 +53,14 @@ router.put('/:id', (req, res, next) => {
         .then(campus => campus.update(req.body))
         .catch(next)
 })
+
+// Delete a campus
+router.delete('/:id', (req, res, next) => {
+    Campus.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(() => res.status(204).end())
+    .catch(next)
+})
