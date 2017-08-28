@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import SingleCampus from './SingleCampus'
 import Navbar from './Navbar'
 import Students from './Students'
+import SingleStudent from './SingleStudent'
 
 export default class WinterJokes extends Component {
   constructor() {
@@ -20,7 +21,8 @@ export default class WinterJokes extends Component {
           <Switch>
             <Route exact path ="/" component={CampusHome} />
             <Route path = "/campus/:campusId" component={SingleCampus} />
-            <Route path="/students" component={Students} />
+            <Route exact path="/students" component={Students} />
+            <Route path = "/students/:id" component={SingleStudent} />
           </Switch>
         </div>
       </Router>

@@ -3,8 +3,6 @@ import store from '../store';
 import {fetchCampus} from '../reducers/currentCampus'
 import {fetchStudents} from '../reducers/currentStudents'
 
-// this.props.match.params.albumId
-
 export default class SingleCampus extends Component{
     constructor() {
         super();

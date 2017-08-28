@@ -25,7 +25,10 @@ router.get('/:id', (req, res, next) => {
     User.findOne({
         where: {
             id: req.params.id
-        }
+        },
+        include: [{
+            model: Campus
+        }]
     })
         .then(student => res.json(student))
         .catch(next)

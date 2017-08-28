@@ -54,7 +54,9 @@ export default class Students extends Component{
                         return (    
                             <tr key={student.id}>
                                 <td>{student.id}</td>
+                                <Link to={`/students/${student.id}`}>
                                 <td>{student.name}</td>
+                                </Link>
                                 <td>{student.campus.name}</td>
                                 <button className="btn btn-danger" onClick={() => {
                                     const removeThunk = deleteStudent(student.id)
