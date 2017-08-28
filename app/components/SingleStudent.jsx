@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import store from '../store';
 import {fetchStudent} from '../reducers/singleStudent'
+import { Link } from 'react-router-dom';
 
 export default class SingleStudent extends Component{
     constructor() {
@@ -33,7 +34,9 @@ export default class SingleStudent extends Component{
                             <td>{student.id}</td>
                             <td>{student.name}</td>
                             <td>{student.email}</td>
+                            <Link to={`/campus/${student.campus.id}`}>
                             <td>{student.campus.name}</td>
+                            </Link>
                         </tr>
                     </tbody>
                 </table>

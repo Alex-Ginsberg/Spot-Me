@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import store from '../store';
 import {fetchCampus} from '../reducers/currentCampus'
+import { Link } from 'react-router-dom';
 import {fetchStudents} from '../reducers/currentStudents'
 
 export default class SingleCampus extends Component{
@@ -40,7 +41,9 @@ export default class SingleCampus extends Component{
                     return (
                         <tr key={student.id}>
                             <td>{student.id}</td>
+                            <Link to={`/students/${student.id}`}>
                             <td>{student.name}</td>
+                            </Link>
                             <td>{student.email}</td>
                         </tr>
                     )
