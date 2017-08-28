@@ -49,14 +49,6 @@ export function  postCampus(campusName) {
             image: '/images/mars.jpeg'
         })
             .then(res => res.data)
-            // .then(newCampus => {
-            //     axios.get(`/api/student/${newCampus.id}`)
-            //         .then(campus => {
-            //             const action = newCampuses(campus.data);
-            //             dispatch(action);
-            //         })
-                
-            // })
             .then(campus => {
                 const action = newCampuses(campus);
                 dispatch(action);

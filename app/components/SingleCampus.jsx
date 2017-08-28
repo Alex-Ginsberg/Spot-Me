@@ -35,7 +35,6 @@ export default class SingleCampus extends Component{
         return (
             <div className="container">
             <h2>{this.state.currentCampus.name}</h2>
-            <button id="deleteCampus" className="btn btn-danger" onClick={this.handleRemove}>DELETE CAMPUS</button>
             <button id="deleteCampus" className="btn btn-info" onClick={this.handleRemove}>Edit Campus</button>
             <p>This table shows all students currently enrolled at the {this.state.currentCampus.name} campus:</p>            
             <table className="table">

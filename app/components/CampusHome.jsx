@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import store from '../store';
 import { Link } from 'react-router-dom';
 import {fetchCampuses} from '../reducers/campuses'
+import {deleteCampuses} from '../reducers/campuses'
 
 export default class CampusList extends Component{
     constructor(props) {
@@ -32,6 +33,11 @@ export default class CampusList extends Component{
                             <img src={campus.image} alt="image" height="150" width="150" />
                             <h2>{campus.name}</h2>
                         </Link>
+                        <button className="btn btn-danger" onClick={() => {
+                            const removeThunk = deleteCampuses(campus.id);
+                            store.dispatch(removeThunk);
+                            const campusesThunk = fetchCampuses();
+                            store.dispatch(campusesThunk);}}>DELETE '{campus.name}' CAMPUS</button>
                     </div>
                 ))}
             </div>
