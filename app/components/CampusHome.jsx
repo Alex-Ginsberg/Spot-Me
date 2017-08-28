@@ -18,11 +18,14 @@ export default class CampusList extends Component{
 
     componentWillUnmount () {
         this.unsubscribe();
-      }
+    }
 
     render() {
         return (
             <div className="row">
+                <Link to={`/campus/add`}>
+                <button id="addCampus" className="btn btn-info">Add Campus</button>
+                </Link>
                 {this.state.campuses.map(campus => (
                     <div key={campus.id} className='col-lg-6' >
                         <Link to={`/campus/${campus.id}`}>

@@ -6,6 +6,7 @@ import currentStudents from './currentStudents'
 import newStudentEntry from './newStudentEntry'
 import showForm from './showForm'
 import singleStudent from './singleStudent'
+import writeCampus from './newCampusEntry'
 
 const initialState = {}
 
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   currentStudents,
   newStudentEntry,
   showForm,
-  singleStudent
+  singleStudent,
+  writeCampus
 })
 
 export default rootReducer

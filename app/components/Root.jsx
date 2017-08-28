@@ -7,6 +7,7 @@ import SingleCampus from './SingleCampus'
 import Navbar from './Navbar'
 import Students from './Students'
 import SingleStudent from './SingleStudent'
+import AddCampus from './AddCampus'
 
 export default class WinterJokes extends Component {
   constructor() {
@@ -20,6 +21,7 @@ export default class WinterJokes extends Component {
         <Navbar />
           <Switch>
             <Route exact path ="/" component={CampusHome} />
+            <Route exact path="/campus/add" component={AddCampus} />
             <Route path = "/campus/:campusId" component={SingleCampus} />
             <Route exact path="/students" component={Students} />
             <Route path = "/students/:id" component={SingleStudent} />
