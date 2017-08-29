@@ -4,6 +4,7 @@ import axios from 'axios';
 const GET_STUDENTS = 'GET_STUDENTS';
 const NEW_STUDENT = 'NEW_STUDENT';
 const REMOVE_STUDENT = 'REMOVE_STUDENT';
+const EDIT_STUDENT = 'EDIT_STUDENT';
 
 // Action Creator
 export function getStudents(students) {
@@ -26,6 +27,14 @@ export function removeStudents(studentId) {
     const action = {
         type: REMOVE_STUDENT,
         studentId: studentId
+    }
+    return action;
+}
+
+export function editStudents(students) {
+    const action = {
+        type: EDIT_STUDENT,
+        students: students
     }
     return action;
 }
@@ -72,6 +81,32 @@ export function deleteStudent(studentId) {
     }
 }
 
+export function putStudent(id, name, email, campus) {
+    console.log('heeeeeerrrrreeeee');
+    return function thunk(dispatch) {
+        console.log('heeeeeerrrrreeeee');
+        return axios.put(`/api/student/${id}`, 
+        {
+            name,
+            email, 
+            campusId: campus
+        })
+            .then(res => {
+                console.log('RES>DATA: ', res.data)
+                return res.data
+            })
+            .then(() => {
+                axios.get(`/api/student`)
+                    .then(res => res.data)
+                    .then(campuses => {
+                        console.log('IN PUT: ', campuses)
+                        const action = editStudents(campuses)
+                        dispatch(action);
+                    })
+            })
+    }
+}
+
 // Reducer
 export default function students(state = [], action) {   
         switch (action.type) {
@@ -82,6 +117,8 @@ export default function students(state = [], action) {
             case REMOVE_STUDENT:
                 let newState = state.filter((student) => student.id !== action.studentId);
                 return newState;
+            case EDIT_STUDENT:
+                return action.students
             default:
                 return state;
         }    

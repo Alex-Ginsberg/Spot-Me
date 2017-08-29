@@ -20,6 +20,9 @@ export default class SingleStudent extends Component{
         console.log('in render: ', student)
         return (
             <div className="container">
+                <Link to={`/students/${student.id}/edit`}>
+                <button id='addStudent' className='btn btn-info'>Edit Student Info</button>
+                </Link>
                 <table className="table">
                     <thead>
                     <tr>
