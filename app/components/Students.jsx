@@ -33,7 +33,6 @@ export default class Students extends Component{
     }
 
     render() {
-        console.log("*****", this.state.students)
         return (
             <div className="container">
                 <button id="addStudent" className="btn btn-success" onClick={this.handleClick}>Add Student</button>          
@@ -62,7 +61,7 @@ export default class Students extends Component{
                     })}
                     </tbody>
                 </table>
-                {this.state.showForm && <AddForm />}
+                {this.state.showForm && <AddForm singleCampus={false}/>}
             </div>
         )
     }

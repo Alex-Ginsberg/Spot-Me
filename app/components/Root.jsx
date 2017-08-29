@@ -8,6 +8,7 @@ import Navbar from './Navbar'
 import Students from './Students'
 import SingleStudent from './SingleStudent'
 import AddCampus from './AddCampus'
+import CampusEdit from './CampusEdit'
 
 export default class WinterJokes extends Component {
   constructor() {
@@ -22,9 +23,10 @@ export default class WinterJokes extends Component {
           <Switch>
             <Route exact path ="/" component={CampusHome} />
             <Route exact path="/campus/add" component={AddCampus} />
-            <Route path = "/campus/:campusId" component={SingleCampus} />
+            <Route exact path = "/campus/:campusId" component={SingleCampus} />
             <Route exact path="/students" component={Students} />
             <Route path = "/students/:id" component={SingleStudent} />
+            <Route path = "/campus/:campusId/edit" component={CampusEdit} />
           </Switch>
         </div>
       </Router>

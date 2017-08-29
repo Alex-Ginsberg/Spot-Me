@@ -3,10 +3,11 @@ import store from '../store';
 import {writeStudent} from '../reducers/newStudentEntry'
 import {postStudent} from '../reducers/students'
 import {showForm} from '../reducers/showForm'
+import {fetchStudents} from '../reducers/currentStudents'
 
 export default class AddForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = store.getState();
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,7 +19,7 @@ export default class AddForm extends Component {
 
     componentWillUnmount () {
         this.unsubscribe();
-      }
+    }
 
     handleChange(e) {
         store.dispatch(writeStudent(e.target.value))
@@ -26,7 +27,14 @@ export default class AddForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        store.dispatch(postStudent(e.target.studentName.value, e.target.studentEmail.value, e.target.studentCampus.value))
+        if (this.props.singleCampus) {
+            store.dispatch(postStudent(e.target.studentName.value, e.target.studentEmail.value, this.state.currentCampus.id))
+            store.dispatch(fetchStudents(this.state.currentCampus.id))
+            this.forceUpdate()
+        }
+        else {
+            store.dispatch(postStudent(e.target.studentName.value, e.target.studentEmail.value, e.target.studentCampus.value))
+        }
         store.dispatch(showForm());
         
     }
@@ -37,18 +45,20 @@ export default class AddForm extends Component {
                 <div className="form-group">
                     <label htmlFor="name">Add Person</label>
                     <input className="form-control" type="text" name="studentName" placeholder="Enter student name" 
-                    value={this.state.newStudentEntry} onChange={this.handleChange} />
-                    <input className="form-control" type="text" name="studentEmail" placeholder="Enter email address"  />
+                    value={this.state.newStudentEntry} onChange={this.handleChange} required />
+                    <input className="form-control" type="text" name="studentEmail" placeholder="Enter email address" required  />
                 </div>
                 <div className="col-xs-10">
-                    <select className="form-control" name="studentCampus" required>
+                {!this.props.singleCampus && <select className="form-control" name="studentCampus" required>
+                    
                     <option value="" defaultValue>Select a campus</option>
                         {
                             this.state.campuses.map(campus => (
                             <option key={campus.id} value={campus.id}>{campus.name}</option>
                         ))
                         }
-                    </select>
+                    </select>}
+                    
                 </div>
                 <div className="form-group">
                     <button type="submit" className="btn btn-default">Submit Student</button>

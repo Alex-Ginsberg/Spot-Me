@@ -4,13 +4,14 @@ import {fetchCampus} from '../reducers/currentCampus'
 import { Link } from 'react-router-dom';
 import {fetchStudents} from '../reducers/currentStudents'
 import {deleteStudent} from '../reducers/students'
-import {deleteCampuses} from '../reducers/campuses'
+import {showForm} from '../reducers/showForm'
+import AddForm from './AddForm'
+
 
 export default class SingleCampus extends Component{
     constructor() {
         super();
         this.state = store.getState();
-        this.handleRemove = this.handleRemove.bind(this);
     }
 
     componentDidMount() {
@@ -25,17 +26,18 @@ export default class SingleCampus extends Component{
         this.unsubscribe();
     }
 
-    handleRemove () {
-        const removeThunk = deleteCampuses(this.props.match.params.campusId);
-        store.dispatch(removeThunk);
-        this.props.history.push('/')
+    handleClick () {
+        store.dispatch(showForm());
     }
 
     render() {
         return (
             <div className="container">
             <h2>{this.state.currentCampus.name}</h2>
-            <button id="deleteCampus" className="btn btn-info" onClick={this.handleRemove}>Edit Campus</button>
+            <Link to={`/campus/${this.state.currentCampus.id}/edit`}>
+            <button id="deleteCampus" className="btn btn-info">Edit Campus</button>
+            </Link>
+            <button id="addStudentToCampus" className="btn btn-info" onClick={this.handleClick}>Add Student To {this.state.currentCampus.name} Campus</button>
             <p>This table shows all students currently enrolled at the {this.state.currentCampus.name} campus:</p>            
             <table className="table">
                 <thead>
@@ -64,6 +66,7 @@ export default class SingleCampus extends Component{
                 })}
                 </tbody>
             </table>
+            {this.state.showForm && <AddForm singleCampus={true}/>}
             </div>
         )
     }

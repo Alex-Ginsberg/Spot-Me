@@ -4,6 +4,7 @@ import axios from 'axios';
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const NEW_CAMPUS = 'NEW_CAMPUS';
 const REMOVE_CAMPUS = 'REMOVE_CAMPUS'
+const EDIT_CAMPUS = 'EDIT_CAMPUS';
 
 // Action Creator
 export function getCampuses(campuses) {
@@ -30,6 +31,14 @@ export function removeCampuses(campusId) {
     return action;
 }
 
+export function editCampuses(campuses) {
+    const action = {
+        type: EDIT_CAMPUS,
+        campuses: campuses
+    }
+    return action;
+}
+
 // Thunk Middleware
 export function fetchCampuses() {    
         return function thunk(dispatch) {
@@ -42,7 +51,7 @@ export function fetchCampuses() {
         }
 }
 
-export function  postCampus(campusName) {
+export function postCampus(campusName) {
     return function thunk(dispatch) {
         return axios.post('/api/campus', {
             name: campusName,
@@ -52,6 +61,27 @@ export function  postCampus(campusName) {
             .then(campus => {
                 const action = newCampuses(campus);
                 dispatch(action);
+            })
+    }
+}
+
+export function putCampus(campusName, campusId) {
+    console.log('heeeeeerrrrreeeee');
+    return function thunk(dispatch) {
+        console.log('heeeeeerrrrreeeee');
+        return axios.put(`/api/campus/${campusId}`, {name: campusName})
+            .then(res => {
+                console.log('RES>DATA: ', res.data)
+                return res.data
+            })
+            .then(() => {
+                axios.get(`/api/campus`)
+                    .then(res => res.data)
+                    .then(campuses => {
+                        console.log('IN PUT: ', campuses)
+                        const action = editCampuses(campuses)
+                        dispatch(action);
+                    })
             })
     }
 }
@@ -76,6 +106,8 @@ export default function campuses(state = [], action) {
             case REMOVE_CAMPUS:
                 let newState = state.filter((student) => student.id !== action.studentId);
                 return newState;
+            case EDIT_CAMPUS:
+                return action.campuses
             default:
                 return state;
         }    

@@ -51,6 +51,7 @@ router.put('/:id', (req, res, next) => {
         }
     })
         .then(campus => campus.update(req.body))
+        .then(result => res.json(result))
         .catch(next)
 })
 
