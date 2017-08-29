@@ -4,6 +4,7 @@ const express = require('express');
 const router = new express.Router();
 const models = require('../db/models');
 const Campus = models.Campus;
+const User = models.User;
 module.exports = router;
 
 // Get all campuses
@@ -57,10 +58,17 @@ router.put('/:id', (req, res, next) => {
 
 // Delete a campus
 router.delete('/:id', (req, res, next) => {
-    Campus.destroy({
+    User.destroy({
+        where: {
+            campusId: req.params.id
+        }
+    })
+    .then(() => {
+        Campus.destroy({
         where: {
             id: req.params.id
         }
+    }) 
     })
     .then(() => res.status(204).end())
     .catch(next)
