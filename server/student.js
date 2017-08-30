@@ -36,12 +36,16 @@ router.get('/:id', (req, res, next) => {
 
 // Post new student
 router.post('/', (req, res, next) => {
+    console.log('here')
     User.create({
         name: req.body.name,
         email: req.body.email,
         campusId: req.body.campusId
     })
-        .then(result => res.json(result))
+        .then(result => {
+            console.log(result)
+            res.json(result)
+        })
         .catch(next)
 })
 

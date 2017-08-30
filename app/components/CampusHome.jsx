@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import store from '../store';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {fetchCampuses, deleteCampuses} from '../reducers/campuses';
 
 export default class CampusList extends Component{
@@ -23,15 +23,15 @@ export default class CampusList extends Component{
     render() {
         return (
             <div className="row">
-                <Link to={`/campus/add`}>
+                <NavLink to={`/campus/add`}>
                 <button id="addCampus" className="btn btn-info">Add Campus</button>
-                </Link>
+                </NavLink>
                 {this.state.campuses.map(campus => (
                     <div key={campus.id} className='col-lg-6' >
-                        <Link to={`/campus/${campus.id}`}>
-                            <img src={campus.image} alt="image" height="150" width="150" />
+                        <NavLink to={`/campus/${campus.id}`} className="white">
+                            <img className="planetImg" src={campus.image} alt="image" height="300" width="300" />
                             <h2>{campus.name}</h2>
-                        </Link>
+                        </NavLink>
                         <button className="btn btn-danger" onClick={() => {
                             const removeThunk = deleteCampuses(campus.id);
                             store.dispatch(removeThunk);

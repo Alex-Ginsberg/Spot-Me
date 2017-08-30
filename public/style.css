@@ -31,8 +31,15 @@ body {
     color: white
 }
 
-* {
-    font: white
+.planetImg {
+    border-radius: 50%;    
 }
 
+.col-lg-6 {
+    text-align: center;
+}
+
+.white {
+    color: white;
+}
 
