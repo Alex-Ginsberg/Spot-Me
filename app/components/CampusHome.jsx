@@ -35,8 +35,9 @@ export default class CampusList extends Component{
                         <button className="btn btn-danger" onClick={() => {
                             const removeThunk = deleteCampuses(campus.id);
                             store.dispatch(removeThunk);
-                            const campusesThunk = fetchCampuses();
-                            store.dispatch(campusesThunk);}}>DELETE '{campus.name}' CAMPUS</button>
+                            }}>
+                            DELETE '{campus.name}' CAMPUS
+                            </button>
                     </div>
                 ))}
             </div>

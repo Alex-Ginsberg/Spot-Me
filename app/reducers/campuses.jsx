@@ -89,7 +89,9 @@ export function putCampus(campusName, campusId) {
 export function deleteCampuses(campusId) {
     return function thunk(dispatch) {
         return axios.delete(`/api/campus/${campusId}`)
-            .then(() => {
+            .then((res) => {
+                console.log('RES: ', res.data)
+                console.log('IN DELETE, CAMPUS ID: ', campusId)
                 const action = removeCampuses(campusId);
                 dispatch(action);
             })
@@ -104,7 +106,8 @@ export default function campuses(state = [], action) {
             case NEW_CAMPUS:
                 return [...state, action.campus]
             case REMOVE_CAMPUS:
-                let newState = state.filter((student) => student.id !== action.studentId);
+                let newState = state.filter((campus) => campus.id !== action.campusId);
+                console.log(newState)
                 return newState;
             case EDIT_CAMPUS:
                 return action.campuses

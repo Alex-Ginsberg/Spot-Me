@@ -29,9 +29,9 @@ export default class AddForm extends Component {
         e.preventDefault();
         if (this.props.singleCampus) {
             store.dispatch(postStudent(e.target.studentName.value, e.target.studentEmail.value, this.state.currentCampus.id))
-            store.dispatch(fetchStudents())
+            // store.dispatch(fetchStudents())
             store.dispatch(fetchCurrentStudents(this.state.currentCampus.id))
-            this.forceUpdate()
+            // this.forceUpdate()
         }
         else {
             store.dispatch(postStudent(e.target.studentName.value, e.target.studentEmail.value, e.target.studentCampus.value))
