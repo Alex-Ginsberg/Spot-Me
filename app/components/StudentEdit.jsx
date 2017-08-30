@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import store from '../store';
-import {writeStudent} from '../reducers/newStudentEntry'
-import {postStudent, putStudent} from '../reducers/students'
-import {showForm} from '../reducers/showForm'
+import {putStudent} from '../reducers/students'
 
 export default class StudentEdit extends Component {
     constructor(props) {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import store from '../store';
 import {writeCampus} from '../reducers/newCampusEntry'
 import {postCampus} from '../reducers/campuses'
-import { Link } from 'react-router-dom';
 
 export default class AddCampus extends Component {
     constructor() {

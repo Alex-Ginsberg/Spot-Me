@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import store from '../store';
 import { Link } from 'react-router-dom';
-import {fetchCampuses} from '../reducers/campuses'
-import {deleteCampuses} from '../reducers/campuses'
+import {fetchCampuses, deleteCampuses} from '../reducers/campuses';
 
 export default class CampusList extends Component{
     constructor(props) {

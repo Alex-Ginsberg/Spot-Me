@@ -13,7 +13,7 @@ export function setStudents(currentStudents) {
 }
 
 // Thunk Middleware
-export function fetchStudents(id) {    
+export function fetchCurrentStudents(id) {    
         return function thunk(dispatch) {
             return axios.get(`/api/all/${id}`)
                 .then(res => res.data)

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import {fetchStudents, deleteStudent} from '../reducers/students'
 import AddForm from './AddForm'
 import {showForm} from '../reducers/showForm'
-import axios from 'axios';
 
 export default class Students extends Component{
     constructor() {
@@ -49,13 +48,11 @@ export default class Students extends Component{
                         return (    
                             <tr key={student.id}>
                                 <td>{student.id}</td>
-                                <Link to={`/students/${student.id}`}>
-                                <td>{student.name}</td>
-                                </Link>
+                                <td><Link to={`/students/${student.id}`}>{student.name}</Link></td>
                                 <td>{student.campus['name']}</td>
-                                <button className="btn btn-danger" onClick={() => {
+                                <td><button className="btn btn-danger" onClick={() => {
                                     const removeThunk = deleteStudent(student.id)
-                                    store.dispatch(removeThunk)}}>X</button>
+                                    store.dispatch(removeThunk)}}>X</button></td>
                             </tr>
                         )
                     })}

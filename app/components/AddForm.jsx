@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import store from '../store';
 import {writeStudent} from '../reducers/newStudentEntry'
-import {postStudent} from '../reducers/students'
+import {postStudent, fetchStudents} from '../reducers/students'
 import {showForm} from '../reducers/showForm'
-import {fetchStudents} from '../reducers/currentStudents'
+import {fetchCurrentStudents} from '../reducers/currentStudents'
 
 export default class AddForm extends Component {
     constructor(props) {
@@ -29,7 +29,8 @@ export default class AddForm extends Component {
         e.preventDefault();
         if (this.props.singleCampus) {
             store.dispatch(postStudent(e.target.studentName.value, e.target.studentEmail.value, this.state.currentCampus.id))
-            store.dispatch(fetchStudents(this.state.currentCampus.id))
+            store.dispatch(fetchStudents())
+            store.dispatch(fetchCurrentStudents(this.state.currentCampus.id))
             this.forceUpdate()
         }
         else {

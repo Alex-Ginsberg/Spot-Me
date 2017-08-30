@@ -25,3 +25,14 @@
     right: 16px;
     font-size: 18px;
 }
+
+body {
+    background-image: url("/images/space.jpg");
+    color: white
+}
+
+* {
+    font: white
+}
+
+

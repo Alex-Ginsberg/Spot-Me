@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import CampusHome from './CampusHome'
-import store from '../store';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import SingleCampus from './SingleCampus'
 import Navbar from './Navbar'
 import Students from './Students'

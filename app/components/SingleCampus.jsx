@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import store from '../store';
 import {fetchCampus} from '../reducers/currentCampus'
 import { Link } from 'react-router-dom';
-import {fetchStudents} from '../reducers/currentStudents'
+import {fetchCurrentStudents} from '../reducers/currentStudents'
 import {deleteStudent} from '../reducers/students'
 import {showForm} from '../reducers/showForm'
 import AddForm from './AddForm'
@@ -17,7 +17,7 @@ export default class SingleCampus extends Component{
     componentDidMount() {
         const campusThunk = fetchCampus(this.props.match.params.campusId);
         store.dispatch(campusThunk);
-        const studentThunk = fetchStudents(this.props.match.params.campusId);
+        const studentThunk = fetchCurrentStudents(this.props.match.params.campusId);
         store.dispatch(studentThunk);
         this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
     }
@@ -51,16 +51,14 @@ export default class SingleCampus extends Component{
                 {this.state.currentStudents.map(student => {
                     return (
                         <tr key={student.id}>
-                            <td>{student.id}</td>
-                            <Link to={`/students/${student.id}`}>
-                            <td>{student.name}</td>
-                            </Link>
+                            <td>{student.id}</td>          
+                            <td><Link to={`/students/${student.id}`}>{student.name}</Link></td>      
                             <td>{student.email}</td>
-                            <button className="btn btn-danger" onClick={() => {
+                            <td><button className="btn btn-danger" onClick={() => {
                                 const removeThunk = deleteStudent(student.id)
                                 store.dispatch(removeThunk)
-                                const studentThunk = fetchStudents(this.props.match.params.campusId);
-                                store.dispatch(studentThunk);}}>X</button>
+                                const studentThunk = fetchCurrentStudents(this.props.match.params.campusId);
+                                store.dispatch(studentThunk);}}>X</button></td>
                         </tr>
                     )
                 })}

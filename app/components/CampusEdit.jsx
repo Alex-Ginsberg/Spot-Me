@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import store from '../store';
-import {writeStudent} from '../reducers/newStudentEntry'
-import {postStudent} from '../reducers/students'
-import {showForm} from '../reducers/showForm'
 import {putCampus} from '../reducers/campuses'
 
 export default class CampusEdit extends Component {
@@ -15,7 +12,7 @@ export default class CampusEdit extends Component {
     handleSubmit(e) {
         e.preventDefault();
         store.dispatch(putCampus(e.target.campusName.value, this.state.currentCampus.id))
-        this.props.history.push(`/`)
+        this.props.history.push(`/campus/${this.state.currentCampus.id}`)
     }
 
     render() {
