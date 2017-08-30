@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {fetchCampus} from './currentCampus'
 
 // Action Types
 const GET_CAMPUSES = 'GET_CAMPUSES';
@@ -61,6 +62,7 @@ export function postCampus(campusName) {
             .then(campus => {
                 const action = newCampuses(campus);
                 dispatch(action);
+                return campus;
             })
     }
 }
@@ -74,15 +76,19 @@ export function putCampus(campusName, campusId) {
                 console.log('RES>DATA: ', res.data)
                 return res.data
             })
-            .then(() => {
-                axios.get(`/api/campus`)
-                    .then(res => res.data)
-                    .then(campuses => {
-                        console.log('IN PUT: ', campuses)
-                        const action = editCampuses(campuses)
-                        dispatch(action);
-                    })
+            .then(campus => {
+                console.log('IN PUTCAMPUS: ', campus)
+                dispatch(fetchCampus(campus.id));
             })
+            // .then(() => {
+            //     axios.get(`/api/campus`)
+            //         .then(res => res.data)
+            //         .then(campuses => {
+            //             console.log('IN PUT: ', campuses)
+            //             const action = editCampuses(campuses)
+            //             dispatch(action);
+            //         })
+            // })
     }
 }
 

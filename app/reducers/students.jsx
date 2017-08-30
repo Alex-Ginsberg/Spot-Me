@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {fetchCurrentStudents} from './currentStudents'
 
 // Action Types
 const GET_STUDENTS = 'GET_STUDENTS';
@@ -65,6 +66,10 @@ export function  postStudent(studentName, studentEmail, campusId) {
                         console.log(student)
                         const action = newStudents(student.data);
                         dispatch(action);
+                    })
+                    .then(() => {
+                        console.log('in post student')
+                        dispatch(fetchCurrentStudents(campusId));
                     })
                 
             })

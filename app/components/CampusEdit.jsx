@@ -11,6 +11,7 @@ export default class CampusEdit extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        // Set current campus
         store.dispatch(putCampus(e.target.campusName.value, this.state.currentCampus.id))
         this.props.history.push(`/campus/${this.state.currentCampus.id}`)
     }

@@ -42,10 +42,23 @@ body {
 
 .col-lg-6:hover {
     background-color: silver;
-    border-radius: 50%;
+    border-radius: 100px;
 }
 
 .white {
     color: white;
+    transition: all 0.5s;    
 }
+
+.white:hover {
+    background-color: silver;
+    border-radius: 100px;
+}
+
+
+.table {
+    background-color: black;
+}
+
+
 

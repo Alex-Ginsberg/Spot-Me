@@ -50,7 +50,7 @@ export default class SingleCampus extends Component{
                 <tbody>
                 {this.state.currentStudents.map(student => {
                     return (
-                        <tr key={student.id}>
+                        <tr key={student.id} className="white">
                             <td>{student.id}</td>          
                             <td><NavLink to={`/students/${student.id}`} className="white">{student.name}</NavLink></td>      
                             <td>{student.email}</td>
@@ -64,7 +64,7 @@ export default class SingleCampus extends Component{
                 })}
                 </tbody>
             </table>
-            {this.state.showForm && <AddForm singleCampus={true}/>}
+            {this.state.showForm && <AddForm singleCampus={true} />}
             </div>
         )
     }
