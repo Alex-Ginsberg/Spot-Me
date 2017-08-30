@@ -15,6 +15,10 @@ export default class SingleStudent extends Component{
         store.dispatch(studentThunk);
     }
 
+    componentWillUnmount () {
+        this.unsubscribe();
+    }
+
     render() {
         const student = this.state.singleStudent;
         console.log('in render: ', student)

@@ -37,7 +37,7 @@ export default class SingleCampus extends Component{
             <NavLink to={`/campus/${this.state.currentCampus.id}/edit`}>
             <button id="deleteCampus" className="btn btn-info">Edit Campus</button>
             </NavLink>
-            <button id="addStudentToCampus" className="btn btn-info" onClick={this.handleClick}>Add Student To {this.state.currentCampus.name} Campus</button>
+            <button id="addStudentToCampus" className="btn btn-success" onClick={this.handleClick}>Add Student To {this.state.currentCampus.name} Campus</button>
             <p>This table shows all students currently enrolled at the {this.state.currentCampus.name} campus:</p>            
             <table className="table">
                 <thead>

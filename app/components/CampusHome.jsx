@@ -24,7 +24,7 @@ export default class CampusList extends Component{
         return (
             <div className="row">
                 <NavLink to={`/campus/add`}>
-                <button id="addCampus" className="btn btn-info">Add Campus</button>
+                <button id="addCampus" className="btn btn-success">Add Campus</button>
                 </NavLink>
                 {this.state.campuses.map(campus => (
                     <div key={campus.id} className='col-lg-6' >

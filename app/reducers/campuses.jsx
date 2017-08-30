@@ -68,27 +68,14 @@ export function postCampus(campusName) {
 }
 
 export function putCampus(campusName, campusId) {
-    console.log('heeeeeerrrrreeeee');
     return function thunk(dispatch) {
-        console.log('heeeeeerrrrreeeee');
         return axios.put(`/api/campus/${campusId}`, {name: campusName})
             .then(res => {
-                console.log('RES>DATA: ', res.data)
                 return res.data
             })
             .then(campus => {
-                console.log('IN PUTCAMPUS: ', campus)
                 dispatch(fetchCampus(campus.id));
             })
-            // .then(() => {
-            //     axios.get(`/api/campus`)
-            //         .then(res => res.data)
-            //         .then(campuses => {
-            //             console.log('IN PUT: ', campuses)
-            //             const action = editCampuses(campuses)
-            //             dispatch(action);
-            //         })
-            // })
     }
 }
 
