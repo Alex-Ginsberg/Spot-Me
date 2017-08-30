@@ -37,6 +37,12 @@ body {
 
 .col-lg-6 {
     text-align: center;
+    transition: all 0.5s;
+}
+
+.col-lg-6:hover {
+    background-color: silver;
+    border-radius: 50%;
 }
 
 .white {
