@@ -4,10 +4,61 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
 const path = require('path');
+const passport = require('passport');
+const SpotifyStrategy = require('../lib/passport-spotify/index').Strategy;
+const session = require('express-session');
+const User = require('../db/models/user')
+// const store = require('../app/store')
+
 
 const pkg = require('../package.json')
 
 const app = express()
+var appKey = '4c5d9dc5a379477fa92c0c6dbf1e130b';
+var appSecret = 'a5b921f44451422eaa64c7c1b1b3bc1d';
+
+// Passport session setup.
+//   To support persistent login sessions, Passport needs to be able to
+//   serialize users into and deserialize users out of the session. Typically,
+//   this will be as simple as storing the user ID when serializing, and finding
+//   the user by ID when deserializing. However, since this example does not
+//   have a database of user records, the complete spotify profile is serialized
+//   and deserialized.
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+// Use the SpotifyStrategy within Passport.
+//   Strategies in Passport require a `verify` function, which accept
+//   credentials (in this case, an accessToken, refreshToken, and spotify
+//   profile), and invoke a callback with a user object.
+passport.use(new SpotifyStrategy({
+  clientID: appKey,
+  clientSecret: appSecret,
+  callbackURL: 'http://localhost:8888/callback'
+  },
+  function(accessToken, refreshToken, profile, done) {
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+      const newUser = {
+        name: profile.displayName,
+        SpotifyId: profile.id
+      };
+      User.findOrCreate({
+        where: newUser
+      })
+      .spread(function (user) {
+        console.log('MAKING USER: ', user)
+        done(null, user);
+      })
+      .catch(done);
+      // return done(null, profile);
+    });
+  }));
 
 if (process.env.NODE_ENV !== 'production') {
   // Logging middleware (non-production only)
@@ -16,6 +67,41 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(express.static(path.join(__dirname, '..', 'node_modules')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(session({ secret: 'keyboard cat' }));
+// Initialize Passport!  Also use passport.session() middleware, to support
+// persistent login sessions (recommended).
+app.use(passport.initialize());
+app.use(passport.session());
+
+// GET /auth/spotify
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request. The first step in spotify authentication will involve redirecting
+//   the user to spotify.com. After authorization, spotify will redirect the user
+//   back to this application at /auth/spotify/callback
+app.get('/auth/spotify',
+  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+  function(req, res){
+// The request will be redirected to spotify for authentication, so this
+// function will not be called.
+});
+
+// GET /auth/spotify/callback
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request. If authentication fails, the user will be redirected back to the
+//   login page. Otherwise, the primary route function function will be called,
+//   which, in this example, will redirect the user to the home page.
+app.get('/callback',
+  passport.authenticate('spotify', { failureRedirect: '/login' }),
+  function(req, res) {
+    console.log('IN CALLBACK: ')
+    res.redirect('/profile');
+  });
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 
 //The code below works because `.use` returns `this` which is `app`. So what we want to return in the `module.exports` is `app`, and we can chain on that declaration because each method invokation returns `app` after mutating based on the middleware functions
 module.exports = app
@@ -40,7 +126,7 @@ if (module === require.main) {
           ~ To help compare these objects, reference each of their `id` attributes
   */
   const server = app.listen(
-    process.env.PORT || 1337,
+    process.env.PORT || 8888,
     () => {
       console.log(`--- Started HTTP Server for ${pkg.name} ---`)      
       console.log(`Listening on ${JSON.stringify(server.address())}`)

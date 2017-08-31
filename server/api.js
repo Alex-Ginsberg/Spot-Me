@@ -6,11 +6,11 @@ const db = require('../db')
 	// I know this because we automatically send index.html for all requests that don't make sense in our backend.
 	// Ideally you would have something to handle this, so if you have time try that out!
 
-api.use('/student', require('./student'));
-api.use('/campus', require('./campus'));
-api.use('/all', require('./all'));
-
+api.use('/users', require('./users'));
 
 api.get('/hello', (req, res) => res.send({hello: 'world'}))
+
+
+api.use('/auth', require('./auth'))
 
 module.exports = api

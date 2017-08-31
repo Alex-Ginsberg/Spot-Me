@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
-import CampusHome from './CampusHome'
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import SingleCampus from './SingleCampus'
-import Navbar from './Navbar'
-import Students from './Students'
-import SingleStudent from './SingleStudent'
-import AddCampus from './AddCampus'
-import CampusEdit from './CampusEdit'
-import StudentEdit from './StudentEdit'
+import Profile from './Profile'
+
 
 export default class WinterJokes extends Component {
   constructor() {
@@ -18,15 +12,11 @@ export default class WinterJokes extends Component {
     return(
       <Router>
         <div>
-        <Navbar />
+          <p>Hey</p>
+          <a href="/auth/spotify">Login with Spotify</a>
+        
           <Switch>
-            <Route exact path ="/" component={CampusHome} />
-            <Route exact path="/campus/add" component={AddCampus} />
-            <Route exact path = "/campus/:campusId" component={SingleCampus} />
-            <Route exact path="/students" component={Students} />
-            <Route exact path = "/students/:id" component={SingleStudent} />
-            <Route path = "/students/:id/edit" component={StudentEdit} />
-            <Route path = "/campus/:campusId/edit" component={CampusEdit} />
+            <Route path='/profile' component={Profile} />
           </Switch>
         </div>
       </Router>
