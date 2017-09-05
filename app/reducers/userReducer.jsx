@@ -20,7 +20,9 @@ export const loadUser = () => dispatch => {
             dispatch(load({
               id: user.data.id,
               name: user.data.name,
-              SpotifyId: user.data.SpotifyId
+              SpotifyId: user.data.SpotifyId,
+              accessToken: user.data.accessToken,
+              proPic: user.data.proPic
             }))
           })
       })

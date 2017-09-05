@@ -8,6 +8,12 @@ const db = require('../db')
 
 api.use('/users', require('./users'));
 
+api.use('/playlists', require('./playlists'));
+
+api.use('/messages', require('./messages'));
+
+api.use('/songs', require('./songs'));
+
 api.get('/hello', (req, res) => res.send({hello: 'world'}))
 
 

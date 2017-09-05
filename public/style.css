@@ -1,64 +1,20 @@
-#addStudent {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    font-size: 18px;
-}
-
-#addCampus {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    font-size: 18px;
-}
-
-#deleteCampus {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    font-size: 18px;
-}
-
-#addStudentToCampus {
-    position: absolute;
-    top: 55px;
-    right: 16px;
-    font-size: 18px;
-}
-
 body {
-    background-image: url("/images/space.jpg");
-    color: white
-}
-
-.planetImg {
-    border-radius: 50%;    
-}
-
-.col-lg-6 {
-    text-align: center;
-    transition: all 0.5s;
-}
-
-.col-lg-6:hover {
-    background-color: silver;
-    border-radius: 100px;
-}
-
-.white {
+    background-image: url("http://eskipaper.com/images/simple-dark-background-1.jpg");
     color: white;
-    transition: all 0.5s;    
 }
 
-.white:hover {
-    background-color: silver;
-    border-radius: 100px;
+#song {
+    background-color: gray;
 }
 
-
-.table {
-    background-color: black;
+#songImg{
+    display: inline;
 }
 
+#songInfo {
+    display: inline;
+}
 
-
+#messageList {
+    list-style-type: none;
+}

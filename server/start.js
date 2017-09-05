@@ -11,7 +11,9 @@ const User = require('../db/models/user')
 // const store = require('../app/store')
 
 
+
 const pkg = require('../package.json')
+
 
 const app = express()
 var appKey = '4c5d9dc5a379477fa92c0c6dbf1e130b';
@@ -44,12 +46,19 @@ passport.use(new SpotifyStrategy({
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
-      const newUser = {
-        name: profile.displayName,
-        SpotifyId: profile.id
-      };
+      console.log('Profile: ', profile)
+
       User.findOrCreate({
-        where: newUser
+        where: {
+          SpotifyId: profile.id
+        },
+        defaults: {
+          name: profile.displayName,
+          SpotifyId: profile.id,
+          accessToken: accessToken,
+          proPic: profile.photos[0],
+          refreshToken: refreshToken
+        }
       })
       .spread(function (user) {
         console.log('MAKING USER: ', user)
@@ -79,7 +88,7 @@ app.use(passport.session());
 //   the user to spotify.com. After authorization, spotify will redirect the user
 //   back to this application at /auth/spotify/callback
 app.get('/auth/spotify',
-  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+  passport.authenticate('spotify', {scope: [ 'user-read-email','playlist-modify-private', 'playlist-modify-public'], showDialog: true}),
   function(req, res){
 // The request will be redirected to spotify for authentication, so this
 // function will not be called.
@@ -132,4 +141,6 @@ if (module === require.main) {
       console.log(`Listening on ${JSON.stringify(server.address())}`)
     }
   )
+  const io = require('socket.io')(server);
+  require('./socket')(io);
 }

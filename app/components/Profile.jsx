@@ -2,26 +2,45 @@ import React, { Component } from 'react';
 import {loadUser} from '../reducers/userReducer'
 import store from '../store'
 import {connect} from 'react-redux';
+import axios from 'axios'
+import {Link} from 'react-router-dom'
+import {fetchChats} from '../reducers/chats'
 
-const mapStateToProps = function (state) {
-  return {
-    user: state.userReducer
-  };
-}
-store.dispatch(loadUser());
-function Profile(props) {
-    
-    console.log('USER: ', props.user)
+export default class Profile extends Component {
+  constructor () {
+    super();
+    this.state = store.getState();
+  }
+
+  componentDidMount () {
+    store.dispatch(loadUser());
+    const chatsThunk = fetchChats();
+    store.dispatch(chatsThunk)
+    this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
+  }
+
+  componentWillUnmount () {
+    this.unsubscribe();
+  }
+
+  render () {
+    const filterChats = this.state.chats.filter(chat => chat.userId === this.state.userReducer.id);
+
     return (
-    <div>
-        <p>Profile</p>
-        <p>{props.user.id}</p>
-        <p>{props.user.name}</p>
-        <p>{props.user.SpotifyId}</p>
-    </div>
-    )
+          <div>
+              <h1>{this.state.userReducer.name}'s Profile</h1>
+              <p>Display name: {this.state.userReducer.name}</p>
+              <img src={this.state.userReducer.proPic} />
+              <p>Chats created by this user: </p>
+              {filterChats.map(chat => (
+                <div className='col-lg-4' key={chat.id}>
+                        <Link to={`/chats/${chat.id}`}>
+                            <h2>{chat.name}</h2>
+                        </Link>
+                    </div>
+              ))}
+          </div>
+          )
+  }
+
 }
-
-const ProfileContainer = connect(mapStateToProps)(Profile); 
-
-export default ProfileContainer;
