@@ -62,6 +62,7 @@ passport.use(new SpotifyStrategy({
       })
       .spread(function (user) {
         console.log('MAKING USER: ', user)
+
         done(null, user);
       })
       .catch(done);
@@ -76,7 +77,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(express.static(path.join(__dirname, '..', 'node_modules')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
-app.use(session({ secret: 'keyboard cat' }));
+app.use(session({ secret: 'keyboard cat', resave: false,
+saveUninitialized: false }));
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
 app.use(passport.initialize());

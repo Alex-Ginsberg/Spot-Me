@@ -4,7 +4,7 @@ const models = require('../db/models')
 const User = models.User
 
 router.get('/', (req, res, next) => {
-    Playlist.findAll({})
+    Playlist.findAll({include: [{all: true}]})
         .then(data => res.json(data))
         .catch(next)
 })

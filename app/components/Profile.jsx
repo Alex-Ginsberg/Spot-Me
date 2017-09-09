@@ -6,6 +6,7 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import {fetchChats} from '../reducers/chats'
 
+
 export default class Profile extends Component {
   constructor () {
     super();

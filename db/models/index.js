@@ -18,9 +18,13 @@ const User = db.define('user', {
   refreshToken: Sequelize.STRING
 })
 
+const Friends = db.define('friends', {})
+
 const Message = require('./messages')
 
 const Song = require('./songs');
+
+const Member = require('./members');
 
 User.hasMany(Playlist)
 Playlist.belongsTo(User)
@@ -32,9 +36,15 @@ Playlist.hasMany(Song);
 // Playlist.belongsTo(Song);
 Song.belongsTo(Playlist)
 
+Playlist.hasMany(Member);
+
+User.belongsToMany(User, { through: Friends, as: 'friends' });
+
 
 module.exports = {
 	User: User,
 	Playlist: Playlist,
-	Message: Message
+	Message: Message,
+	Friends: Friends,
+	Member: Member
 }

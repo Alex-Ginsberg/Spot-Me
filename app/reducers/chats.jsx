@@ -34,13 +34,15 @@ export function fetchChats() {
     }
 }
 
-export function postChat(chat) {
+export function postChat(chat, userId) {
     return function thunk(dispatch) {
         return axios.post('/api/playlists', chat)
             .then(res => res.data)
             .then(chat => {
+                axios.post('/api/users/members', {userId: userId, playlistId: chat.id})
                 const action = newChat(chat);
                 dispatch(action);
+                
             })
     }
 }

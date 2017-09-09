@@ -5,6 +5,8 @@ import newMessageEntry from './newMessageEntry'
 import chats from './chats'
 import songs from './songs'
 import singlePlaylist from './singlePlaylist'
+import currentFriends from './currentFriends'
+import users from './users'
 
 
 const initialState = {}
@@ -16,7 +18,9 @@ const rootReducer = combineReducers({
     newMessageEntry,
     chats,
     songs,
-    singlePlaylist
+    singlePlaylist,
+    currentFriends,
+    users
 })
 
 export default rootReducer

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
+import {postChat} from '../reducers/chats'
 import store from '../store'
-import {fetchChats, postChat} from '../reducers/chats'
 import axios from 'axios'
+
 
 export default class Chats extends Component {
     constructor() {
@@ -12,8 +13,6 @@ export default class Chats extends Component {
     }
 
     componentDidMount(){
-        const chatThunk = fetchChats();
-        store.dispatch(chatThunk);
         this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
     }
   
@@ -49,38 +48,26 @@ export default class Chats extends Component {
                   userId: this.state.userReducer.id,
                   likesNeeded: likesNeeded
                 }
-                const postChatThunk = postChat(data)
+                const postChatThunk = postChat(data, this.state.userReducer.id)
                 store.dispatch(postChatThunk)
               })
+            this.props.history.push('/chats')
       }
 
     render() {
-        const filteredChats = [];
-        for (var i = 0; i < this.state.chats.length; i++) {
-            for (var j = 0; j < this.state.chats[i].members.length; j++) {
-                console.log('CHATS: ', this.state.chats[i].members[j].userId, "   ", this.state.userReducer.id)
-                if (this.state.chats[i].members[j].userId == this.state.userReducer.id ) {
-                    filteredChats.push(this.state.chats[i]);
-                }
-            }
-        }
         return(
         <div>
-            <h1>List of chats you are a part of:</h1>
-            <div className="row">
-                {filteredChats.map(chat => (
-                    <div className='col-lg-4' key={chat.id}>
-                        <Link to={`/chats/${chat.id}`}>
-                            <h2>{chat.name}</h2>
-                        </Link>
-                        <a href={`${chat.externalUrl}`}>Check out the playlist</a>
-                        
-                    </div>
-                ))} 
-            </div>
-            <Link to={'/newchat'}>
-                <button className='btn btn-info'>Make a new chat/playlist</button>
-            </Link>
+            <form onSubmit={this.handlePlaylistSubmit}>
+                <div className="form-group">
+                    <label htmlFor="name">Create a Playlist</label>
+                    <input className="form-control" type="text" name="playlistName" placeholder="Enter playlist name" required />
+                    <input className="form-control" type="text" name="playlistDescription" placeholder="Enter description"   />
+                    <input className="form-control" type="text" name="playlistLikesNeeded" placeholder="Select the number of likes needed for a song to be added to your playlist"   />
+                </div>
+                <div className="form-group">
+                    <button type="submit" className="btn btn-default">Create Playlist</button>
+                </div>
+            </form>
         </div>
         )
     }

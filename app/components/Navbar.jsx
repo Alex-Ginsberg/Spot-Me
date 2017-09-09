@@ -11,6 +11,12 @@ export default function Navbar () {
             <Link to="/chats">
                 <button className='btn btn-info'>Chats</button>
             </Link>   
+            <Link to="/friends">
+                <button className='btn btn-info'>Friends</button>
+            </Link>
+            <Link to="/find">
+                <button className='btn btn-info'>Find Friends</button>
+            </Link>
       </nav>
 
     )
