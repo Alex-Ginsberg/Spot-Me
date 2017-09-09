@@ -16,8 +16,8 @@ const pkg = require('../package.json')
 
 
 const app = express()
-var appKey = '4c5d9dc5a379477fa92c0c6dbf1e130b';
-var appSecret = 'a5b921f44451422eaa64c7c1b1b3bc1d';
+var appKey = ''
+var appSecret = ''
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
